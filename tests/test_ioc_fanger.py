@@ -378,3 +378,16 @@ def test_debug():
     # make sure using debug still works properly
     s = '192[.]168[.]4[.]2'
     assert ioc_fanger.fang(s, debug=True) == '192.168.4.2'
+
+def test_idns():
+    s = 'вирус.рф'
+    assert ioc_fanger.defang(s) == 'вирус[.]рф'
+
+    s = 'вирус[.]рф'
+    assert ioc_fanger.fang(s) == 'вирус.рф'
+
+    s = '名がドメイン.中国'
+    assert ioc_fanger.defang(s) == '名がドメイン[.]中国'
+
+    s = '名がドメイン[.]中国'
+    assert ioc_fanger.fang(s) == '名がドメイン.中国'

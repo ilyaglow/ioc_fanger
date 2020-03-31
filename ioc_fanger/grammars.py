@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from pyparsing import alphas, alphanums
+from pyparsing import pyparsing_unicode
 from pyparsing import (
     CaselessLiteral,
     Combine,
@@ -19,8 +20,8 @@ from pyparsing import (
     White,
 )
 
-alphanum_word_start = WordStart(wordChars=alphanums)
-alphanum_word_end = WordEnd(wordChars=alphanums)
+alphanum_word_start = WordStart(wordChars=pyparsing_unicode.alphanums+alphanums)
+alphanum_word_end = WordEnd(wordChars=pyparsing_unicode.alphanums+alphanums)
 
 uppercase_word = Word("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 not_uppercase_word_regex = Regex("[^A-Z]")
@@ -428,12 +429,12 @@ odd_url_scheme_form = alphanum_word_start + Or(
     [
         Combine(
             Word("Hh")
-            + Word(alphas, exact=2).addParseAction(replaceWith("tt"))
+            + Word(pyparsing_unicode.alphas+alphas, exact=2).addParseAction(replaceWith("tt"))
             + Word("Pp")
             + Optional(Word("Ss"))
             + Word(":")
         ),
-        Combine(Word(alphas, exact=5) + "://").addParseAction(replaceWith("https://")),
-        Combine(Word(alphas, exact=4) + "://").addParseAction(replaceWith("http://")),
+        Combine(Word(pyparsing_unicode.alphas+alphas, exact=5) + "://").addParseAction(replaceWith("https://")),
+        Combine(Word(pyparsing_unicode.alphas+alphas, exact=4) + "://").addParseAction(replaceWith("http://")),
     ]
 )
