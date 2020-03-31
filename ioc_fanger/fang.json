@@ -4,6 +4,10 @@
         "replace": "://"
     },
     {
+        "find": "(www)",
+        "replace": "www"
+    },
+    {
         "find": ":///+",
         "replace": "://",
         "regex": true
